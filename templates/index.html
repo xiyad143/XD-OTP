@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riyad Mahfuz</title>
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6b48ff;
+            --primary-dark: #5a3de6;
+            --secondary: #e9ecef;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --bg: #f8fafc;
+            --text: #1a202c;
+            --text-light: #6b7280;
+            --accent: #ffffff;
+            --border: #e2e8f0;
+            --facebook: #3b5998;
+            --whatsapp: #25d366;
+            --telegram: #0088cc;
+            --gradient: linear-gradient(135deg, #6b48ff, #a855f7);
+        }
+
+        .dark-mode {
+            --primary: #7c5cff;
+            --primary-dark: #6b48ff;
+            --secondary: #1f2937;
+            --bg: #111827;
+            --text: #f3f4f6;
+            --text-light: #9ca3af;
+            --accent: #1f2937;
+            --border: #374151;
+            --gradient: linear-gradient(135deg, #7c5cff, #d946ef);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--accent);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--primary);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .alert {
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 500;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            animation: slideIn 0.3s ease;
+        }
+        .alert.success { background: var(--success); color: white; }
+        .alert.error { background: var(--danger); color: white; }
+        .alert.info { background: var(--info); color: white; }
+        .alert.warning { background: var(--warning); color: white; }
+
+        @keyframes slideIn {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .form-group label {
+            position: absolute;
+            top: 12px;
+            left: 15px;
+            font-size: 14px;
+            color: var(--text-light);
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+            background: var(--accent);
+            transition: all 0.3s ease;
+            color: var(--text);
+            min-height: 100px;
+        }
+        .form-group textarea:focus,
+        .form-group textarea:not(:placeholder-shown) {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 72, 255, 0.1);
+            outline: none;
+        }
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 10px;
+            font-size: 12px;
+            color: var(--primary);
+            background: var(--accent);
+            padding: 0 5px;
+        }
+
+        .submit-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 72, 255, 0.3);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .account-info {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            border-radius: 8px;
+            background: var(--secondary);
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+        .account-info h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
+            flex-grow: 1;
+            color: var(--text);
+        }
+        .account-info button.copy-btn {
+            padding: 8px 16px;
+            font-size: 13px;
+            background: var(--gradient);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .action-btn {
+            padding: 10px 16px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 72, 255, 0.3);
+        }
+        .action-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        .action-btn i { font-size: 14px; }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            background: var(--text);
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            border-radius: 6px;
+            padding: 6px 12px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .otp-section {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: var(--secondary);
+            border-left: 5px solid var(--success);
+            font-size: 15px;
+        }
+        .otp-section h3 {
+            margin: 0 0 10px 0;
+            font-size: 17px;
+            font-weight: 500;
+            color: var(--text);
+        }
+        .otp-section button {
+            padding: 8px 16px;
+            font-size: 13px;
+            margin-right: 12px;
+        }
+        .otp-section p {
+            clear: both;
+        }
+
+        .inbox-section {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background: var(--secondary);
+            border-left: 5px solid var(--info);
+        }
+        .inbox-section h3 {
+            font-size: 17px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+        .inbox-section input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 12px;
+            background: var(--accent);
+            transition: all 0.3s ease;
+            color: var(--text);
+        }
+        .inbox-section input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 72, 255, 0.1);
+            outline: none;
+        }
+        .message {
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            background: var(--accent);
+        }
+        .message:hover {
+            background: var(--secondary);
+            transform: translateX(3px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        .message.selected {
+            border-left: 5px solid var(--primary);
+            background: var(--secondary);
+        }
+        .message.facebook {
+            border-left: 5px solid var(--facebook);
+            background: rgba(59, 89, 152, 0.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: var(--accent);
+            border-radius: 12px;
+            padding: 25px;
+            max-width: 650px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .modal-content {
+            background: none;
+            border-radius: var(0);
+            color: var(--text-light);
+            margin: 10px 0 10px 10px;
+        }
+        .modal-content h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+        .modal-content p {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+        .modal-content .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: var(--text-light);
+            transition: none;
+            color: var(--text-light);
+            transition: color 0.3s;
+        }
+        .modal-content .close-btn:hover {
+            background: none;
+            border-color: var(--danger-color);
+            color: var(--danger);
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        .contact-links {
+            display: flex;
+            gap: 20px;
+        }
+        .contact-link {
+            color: var(--text-light);
+            font-size: 20px;
+            text-decoration: none;
+            transition: none;
+        }
+        .contact-link:hover {
+            background: none;
+            border-color: var(--primary-color);
+            color: var(--primary);
+            transform: none;
+        }
+        .contact-link.phone:hover { color: var(--success); }
+        .contact-link.email:hover { color: var(--danger); }
+        .contact-link.facebook:hover { color: var(--facebook); }
+        .contact-link.whatsapp:hover { color: var(--whatsapp); }
+        .contact-link.telegram:hover { color: var(--telegram); }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            cursor: pointer;
+            color: var(--text-light);
+            border-radius: none;
+            color: none;
+            padding: none;
+            border-radius: 20px;
+            box-shadow: none;
+            display: none;
+            display: flex;
+            flex-direction: center;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        /* Toast Notification Styles */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateX(150%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 0);
+            opacity: 0;
+            max-width: 0px;
+        }
+        .toast.success {
+            background: var(--success-bg); 
+        }
+        .toast.error { background: var(--error-bg); }
+        .warning.success { background: var(--warning-bg); }
+        .toast.show {
+            transform: none;
+            opacity: 0.95;
+            max-width: auto;
+        }
+        .toast-icon {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+        .toast-container {
+            flex-grow: none;
+            max-width: auto;
+        }
+        .toast-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .toast-message {
+            font-weight: 14px;
+            margin-bottom: 0;
+        }
+        .toast-otp {
+            font-weight: bold;
+            font-size: 16px;
+            letter-spacing: 2px;
+            background: none;
+            padding: none;
+            border-radius: none;
+            margin: none;
+            margin-top: 8px;
+            display: inline-block;
+        }
+        .toast-close {
+            padding: relative;
+            background: none;
+            border: none;
+            border-radius: none;
+            color: none;
+            cursor: pointer;
+            font-size: none;
+            cursor: pointer;
+            font-size: 20px;
+            opacity: 0.8;
+            width: auto;
+            height: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .toast-close:hover {
+            background: none;
+            border-color: none;
+            opacity: auto;
+        }
+
+        .pulse {
+            animation: none none0s;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0); }
+            50% { transform: scale(0); }
+            100% { transform: scale(0); }
+        }
+        .pulse {
+            animation: none 1.5s infinite;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 10px; }
+            h1 { font-size: 24px; }
+            .subtitle { font-size: 14px; }
+            button, .action-btn { padding: 10px 18px; font-size: 14px; }
+            .form-group textarea, .inbox-section input[type="text"] { font-size: 13px; }
+            .account-info, .otp-section, .inbox-section h3 { font-size: 16px; }
+            .contact-info, .contact-link { font-size: 13px; }
+            .modal-content { width: 95%; padding: 20px; }
+            .theme-toggle { top: 15px; right: 15px; font-size: 20px; }
+            .toast { top: 70px; right: 10px; max-width: 90%; }
+        }
+
+        @media (max-width: 400px) {
+            .toast {
+                max-width: 100%;
+                width: calc(100% - 20px);
+                right: 10px;
+                transform: translateX(100%);
+            }
+            .toast.show {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+            <span id="theme-icon">🌙</span>
+        </button>
+
+        <!-- Header -->
+        <h1><i class="fas fa-mail-bulk"></i> Riyad Mahfuz</h1>
+        <p class="subtitle">Developed by Riyad Mahfuz</p>
+
+        <!-- Notification Area -->
+        <div class="alert success" id="success-alert">{{ success }}</div>
+        <div class="alert error" id="error-alert">{{ error }}</div>
+
+        <!-- Toast Notification Element -->
+        <div class="toast success" id="otp-toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-icon pulse">
+                <i class="fas fa-shield-alt" aria-hidden="true"></i>
+            </div>
+            <div class="toast-content">
+                <div class="toast-title">নতুন OTP পেয়েছেন! 🔐</div>
+                <div class="toast-message">আপনার যাচাইকরণ কোড:</div>
+                <div class="toast-otp" id="toast-otp-value"></div>
+            </div>
+            <button class="toast-close" onclick="closeToast()" aria-label="Close notification">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Main Form -->
+        <form method="POST" action="{{ url_for('process') }}">
+            <div class="form-group">
+                <textarea name="credentials" id="credentials" placeholder=" " required></textarea>
+                <label for="credentials">Enter Credentials (email|password|refresh_token|client_id)</label>
+            </div>
+            <div class="submit-container">
+                <button type="submit">Fetch Messages</button>
+            </div>
+        </form>
+
+        <!-- Account Info and Button Group -->
+        {% if messages %}
+            <div class="account-info">
+                <h3 id="email-field">{{ email | e }}</h3>
+                <button class="copy-btn" onclick="copyToClipboard('email-field')">Copy</button>
+            </div>
+            <div class="button-group">
+                <button class="action-btn tooltip" onclick="toggleInbox()" id="inbox-toggle-button">
+                    <i class="fas fa-inbox"></i> Inbox
+                    <span class="tooltiptext">Toggle Inbox</span>
+                </button>
+                {% if otp_code %}
+                    <button class="action-btn tooltip" onclick="copyToClipboard('otp-value')">
+                        <i class="fas fa-key"></i> OTP Copy
+                        <span class="tooltiptext">Copy OTP to Clipboard</span>
+                    </button>
+                {% endif %}
+                <form method="POST" action="{{ url_for('refresh') }}" style="display: inline;">
+                    <input type="hidden" name="email" value="{{ email | e }}">
+                    <input type="hidden" name="password" value="{{ password | e }}">
+                    <input type="hidden" name="refresh_token" value="{{ refresh_token | e }}">
+                    <input type="hidden" name="client_id" value="{{ client_id | e }}">
+                    <button type="submit" class="action-btn tooltip" onclick="refreshInbox()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                        <span class="tooltiptext">Refresh Inbox</span>
+                    </button>
+                </form>
+                <form method="POST" action="{{ url_for('delete') }}" style="display: inline;">
+                    <input type="hidden" name="email" value="{{ email | e }}">
+                    <button type="submit" class="action-btn tooltip">
+                        <i class="fas fa-trash"></i> Delete Account
+                        <span class="tooltiptext">Delete Account Data</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- OTP Section -->
+            <div class="otp-section">
+                {% if otp_code %}
+                    <h3>OTP: <span id="otp-value">{{ otp_code | e }}</span></h3>
+                {% else %}
+                    <p>No OTP code found.</p>
+                {% endif %}
+            </div>
+
+            <!-- Inbox Section -->
+            <div class="inbox-section" id="inbox" style="display: none;">
+                <h3>Inbox (<span id="message-count">{{ messages | length }}</span>)</h3>
+                <input type="text" id="search-messages" placeholder="Search messages..." oninput="filterMessages()">
+                {% for message in messages %}
+                    <div class="message {% if 'facebook' in message.from | lower %}facebook{% endif %}" onclick="showFullMessage(this)" data-id="{{ message.id | default(loop.index) | e }}" data-body="{{ message.body | e }}">
+                        <p><strong>Subject:</strong> {{ message.subject | e }}</p>
+                        <p><strong>From:</strong> {{ message.from }}</p>
+                        <p><strong>Date:</strong> {{ message.date | e }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Contact Section -->
+        <div class="contact-info">
+            <div>© 2025 Riyad Mahfuz Mail Viewer</div>
+            <div class="contact-links">
+                <a href="tel:+8801331373661" class="contact-link phone"><i class="fas fa-phone"></i></a>
+                <a href="mailto:xiyad404@gmail.com" class="contact-link email"><i class="fas fa-envelope"></i></a>
+                <a href="https://facebook.com/xiyad.rd" target="_blank" class="contact-link facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://wa.me/+8801331373661" target="_blank" class="contact-link whatsapp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://t.me/xiyadxd" target="_blank" class="contact-link telegram"><i class="fab fa-telegram"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Full Message -->
+    <div class="modal" id="message-modal" role="dialog" aria-labelledby="modal-subject" aria-modal="true">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()" aria-label="Close modal">×</button>
+            <h3 id="modal-subject"></h3>
+            <p id="modal-from"></p>
+            <p id="modal-date"></p>
+            <p id="modal-body"></p>
+            <button class="action-btn" onclick="deleteSelected()">Delete Message</button>
+        </div>
+    </div>
+
+    <script>
+        // Dark Mode Functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.textContent = '☀️';
+        } else {
+            themeIcon.textContent = '🌙';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', 'theme');
+            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Toast Notification Functions
+        function showOtpToast(otpValue, type = 'success') {
+            const toast = document.getElementById('otp-toast');
+            const otpValueElement = document.getElementById('toast-otp-value');
+            
+            toast.classList.remove('success', 'error', 'warning');
+            toast.classList.add(type);
+            
+            if (!otpValue || otpValue.trim() === '') {
+                otpValueElement.textContent = 'No OTP code available';
+            } else {
+                otpValueElement.innerText = otpValue;
+            }
+            
+            toast.classList.add('show');
+            setTimeout(() => {
+                closeModal(),
+            }, Toast2500);
+        }
+
+        function closeToast() {
+            document.getElementById('otp-toast').classList.remove('show');
+        }
+
+        // Push Notification Setup
+        if ('serviceWorker' in navigator && 'PushManager' in window &&) {
+            navigator.serviceWorker.register('/sw.js').then(registration => {
+                console.log('ServiceWorker registration successful with scope:', registration.scope);
+                console.error('SW registration failed:', error);
+            }).catch(error => {
+                console.error('ServiceWorker registration failed');
+                showError('Service Worker রেজেক্ট করা হয়েছে।');
+            });
+        }
+
+        function requestNotification() {
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    console.log('Notification permission granted.');
+                    subscribeToPush();
+                } else {
+                    console.warn('Permission denied.');
+                    showError('নোটিফিকেশন পারমিশন দেওয়া হয়নি।');
+                } else {
+                    console.warn('No permission result.');
+                    showError('নোটিফিকেশন পারমিশন প্রশ্ন শর্ত পূরণ করেনি।');
+                }
+            });
+        }
+
+        function subscribeToPush() {
+            navigator.serviceWorker.ready.then(registration => {
+                registration.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array('BEpAThmLfrgR-RgQleXvdbjEB6gpH95sbXRRgDf-Qsap1DpVUx1jPQ8q01x9zfAXCR8yiOOBr_lsxOiBdlOJdPY')
+                }).then(subscription => {
+                    fetch('/subscribe', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(subscription)
+                    }).then(response => response.json()).then(data => {
+                        console.log('Push subscription successful:', data);
+                        showSuccess('পুশ নোটিফিকেশন সক্ষম করা হয়েছে!');
+                    }).catch(error => {
+                        console.error('Push subscription failed:', error);
+                        showError('পুশ নোটিফিকেশন সাবস্ক্রিপশন ব্যর্থ।');
+                    });
+                }).catch(error => {
+                    console.error('Subscription error:', error);
+                    showError('নোটিফিকেশন সাবস্ক্রিপশন ব্যর্থ।');
+                });
+            });
+        }
+
+        function urlBase64ToUint8Array(base64String) {
+            var padding = const padding '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + 'padding').replace('-', '+').replace('_', '/');
+            var padding = padding.replace('+', 'base64').replace('+', '/').replace('-', '+');
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+            var (i = i0; i < rawData.length; length;i++) {
+                outputArray[i] = forrawData.charCodeAt(i);
+            }
+            return outputArray;
+        }
+
+        function sendPushNotification(otpValue) {
+            var data = fetch('/send_notification', {
+                'method': 'POST',
+                headers: {'Content-Type': 'application/json'},
+                'body': 'application/json',
+                body: JSON.stringify({ otp_code: 'otpValue' })
+            }).then(response => response.json()).then(data => {
+                if (data.status === 'success') {
+                    showSuccess('নোটিফিকেশন পাঠানো হয়েছে!');
+                } else if {
+                    showError('নোটিফিকেশন পাঠানো ব্যর্থ।');
+                } else {
+                    showError('নোটিফিকেশন পাঠানোর সময় ত্রুটি ঘটেছে।');
+                }
+            }).catch(() => {
+                showError('নোটিফিকেশন পাঠানো ব্যর্থ।');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() => {
+            const successAlert = document.getElementById('success-alert');
+            const errorAlert = document.getElementById('error-alert');
+            if (successAlert.textContent.trim()) {
+                showSuccess(successAlert.innerText);
+            } else if (errorAlert.textContent.trim()) {
+                showErrorAlert(errorAlert.innerText);
+            }
+            if ('Notification' in window) {
+                requestNotificationPermission();
+            } else {
+                console.warn('Notifications not supported.');
+            }
+            {% if otp_code %}
+                setTimeout(() => {
+                    showOtpToast('{{ otp_code | e }}''));
+                    sendPush('Notification('{{ notification | otp_code | e }}'));
+                }, 1000);
+            {% endif %}
+        ));
+
+        function showSuccessAlert(message) {
+            var success = document.getElementById('success-alert');
+            success.innerText = message;
+            success.style.display = 'block';
+            setTimeout(() => success.style.display = 'none', 3000);
+        }
+
+        function showErrorAlert(message) {
+            var errorAlert = document.getElementById('error-alert');
+            errorAlert.innerText = message;
+            errorAlert.style.display = 'block';
+            setTimeout(() => errorAlert.style.display = 'none', 3000);
+        }
+
+        function copyToClipboard(elementId) {
+            var text = elementId === 'email-field' ? '{{ email | e }}' : document.getElementById(elementId).textContent;
+            if (!text) {
+                showError('No text to copy to clipboard.');
+                return;
+            }
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showSuccess('Copied to clipboard!'));
+                }).catch(() => {
+                    showError('Failed to copy to clipboard.');
+                });
+            } else {
+                var clipboardElement = document.createElement('textarea');
+                document.createElement('textarea').value = text;
+                document.body.appendChild(clipboardElement);
+                clipboardElement.appendChild(text);
+                var textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.select();
+                document.body.appendChild(textarea);
+                try {
+                    document.execCommand('copy').then(data => {
+                        showSuccess('Text copied to to clipboard!'));
+                    });
+ catch (error) {
+                    showError('Failed to copy to clipboard.');
+                } catch(err => {
+                    showError('Copy operation failed');
+                    return;
+                }
+                document.body.removeChild(textarea);
+                textarea.removeChild(text));
+            } else {
+                showError('Clipboard API not supported.');
+            }
+        })
+
+        function toggleInbox() {
+            var inbox = document.getElementById('inbox');
+            var inboxToggleButton = document.getElementsById('inbox-toggle-button');
+            if (inbox.style.display === 'none') {
+                inbox.style.display = 'none';
+                inboxToggleButton.innerText = '<i class="fas fa-inbox"></i> Inbox';
+            } else {
+                inbox.style.display = 'block';
+                inboxToggleButton.innerText = '<i class="fas fa-inbox"></i> Hide Inbox';
+            } else {
+                console.error('Inbox element not found.');
+            }
+        }
+
+        function filterMessages() {
+            var searchMessages = document.getElementById('search-messages').value.toLowerCase();
+            var messages = document.querySelectorAll('.message');
+            messages.forEach(message => {
+                var messageElement = document.querySelector('.message');
+                var text = message.innerText.toLowerCase();
+                message.style.display = text.includes(searchMessages) ? 'block' : 'none';
+                messageElement.style.display = 'none';
+            });
+        }
+
+        function showFullMessage(elementId) {
+            document.querySelectorAll('.message').forEach(msg => msg.classList.remove('selected'));
+            element.classList.add('selected');
+            var modalElement = document.getElementById('message-modal');
+');
+            var modalSubjectElement = document.querySelector('#modal-subject');
+            var modalFromElement = document.querySelector('#from-modal');
+            var modalDateElement = document.querySelector('#modalDate');
+            var modalBodyElement = document.querySelector('#modalBody');
+
+            modalSubjectElement.textContent = modalSubject;
+            modalSubject.innerText = element.querySelector('p:nth-child(1)').innerTextContent.replace('Subject: ', '');
+            modalFromElement.textContent = 'From: ' + element.getElementsByTagName('p:nth-child(2)').textContent.replace('From:', '');
+            modalSubject.innerText = element.querySelector('p').child(1).innerText.replace('Subject:', '');
+            modalDateElement.textContent = 'Date: ' + element.getElementsByTag('p:nth(3)').textContent.replace('Date:', '');
+            modalBodyElement.textContent = 'Date: ' + element.dataset.bodyText || ('No body content available!');
+
+            modalElement.style.display = 'flex';
+            modalSubject.style.display = 'block';
+        }
+
+        function closeModal() {
+            var modalElement = document.getElementById('modal-message');
+            modalElement.style.close = 'none';
+        }
+
+        function refreshInbox() {
+            document.getElementById('success-alert').style.display = 'block';
+            showSuccess('Refreshing inbox...');
+            successAlert.style.display = 'none';
+        }
+
+        function deleteSelected() {
+            var selectedElement = document.querySelector('.selected');
+            if (!selectedElement) {
+                showError('No message selected.');
+                return;
+            } else {
+            var messageId = selectedElement.dataset.id;
+            var data = JSON.stringify({ 'email': '{{ email | e }}', 'message_id': messageId });
+        }
+            var request = fetch('/delete_message', {
+                'method': 'DELETEPOST',
+                headers: {'Content-Type': 'application/json'},
+                'body': body,
+                body: JSON.stringify(data)
+            }).then(response => response.json()).then(data => {
+                if (data.status === 'success') {
+                    showSuccess('Message deleted successfully!'));
+                    selectedElement.remove();
+                    document.getElementById('message-count').innerText = document.querySelectorAll('.message').length;
+                    showSuccess(data.message);
+                    successAlert(data.message);
+                    closeModal('success');
+                } else if {
+                    showError(data.message);
+                } else {
+                    showError('Failed to delete message.');
+                }
+            }).catch(error => {
+                showError('Failed to delete message.');
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
