@@ -360,12 +360,6 @@
             position: relative;
             animation: fadeIn 0.3s ease-out;
         }
-        .modal-content {
-            background: none;
-            border-radius: var(0);
-            color: var(--text-light);
-            margin: 10px 0 10px 10px;
-        }
         .modal-content h3 {
             font-size: 20px;
             font-weight: 600;
@@ -384,14 +378,11 @@
             font-size: 24px;
             cursor: pointer;
             background: none;
-            border: var(--text-light);
-            transition: none;
+            border: none;
             color: var(--text-light);
             transition: color 0.3s;
         }
         .modal-content .close-btn:hover {
-            background: none;
-            border-color: var(--danger-color);
             color: var(--danger);
         }
 
@@ -412,13 +403,11 @@
             color: var(--text-light);
             font-size: 20px;
             text-decoration: none;
-            transition: none;
+            transition: all 0.3s ease;
         }
         .contact-link:hover {
-            background: none;
-            border-color: var(--primary-color);
             color: var(--primary);
-            transform: none;
+            transform: translateY(-3px);
         }
         .contact-link.phone:hover { color: var(--success); }
         .contact-link.email:hover { color: var(--danger); }
@@ -434,24 +423,17 @@
             border: none;
             font-size: 22px;
             cursor: pointer;
-            cursor: pointer;
             color: var(--text-light);
-            border-radius: none;
-            color: none;
-            padding: none;
-            border-radius: 20px;
-            box-shadow: none;
-            display: none;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 50%;
             display: flex;
-            flex-direction: center;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
         }
         .theme-toggle:hover {
             background: var(--secondary);
             color: var(--primary);
-            box-shadow: none;
         }
 
         /* Toast Notification Styles */
@@ -468,90 +450,69 @@
             align-items: center;
             gap: 15px;
             transform: translateX(150%);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 0);
-            opacity: 0;
-            max-width: 0px;
-        }
-        .toast.success {
-            background: var(--success-bg); 
-        }
-        .toast.error { background: var(--error-bg); }
-        .warning.success { background: var(--warning-bg); }
-        .toast.show {
-            transform: none;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             opacity: 0.95;
-            max-width: auto;
+            max-width: 400px;
+        }
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--danger); }
+        .toast.warning { background: var(--warning); }
+        .toast.show {
+            transform: translateX(0);
         }
         .toast-icon {
             font-size: 26px;
-            margin-bottom: 10px;
         }
-        .toast-container {
-            flex-grow: none;
-            max-width: auto;
+        .toast-content {
+            flex-grow: 1;
         }
         .toast-title {
-            font-weight: bold;
-            font-size: 16px;
+            font-weight: 600;
+            font-size: 17px;
             margin-bottom: 5px;
         }
         .toast-message {
-            font-weight: 14px;
-            margin-bottom: 0;
+            font-size: 15px;
         }
         .toast-otp {
-            font-weight: bold;
-            font-size: 16px;
-            letter-spacing: 2px;
-            background: none;
-            padding: none;
-            border-radius: none;
-            margin: none;
+            font-weight: 700;
+            font-size: 22px;
+            letter-spacing: 3px;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 12px;
+            border-radius: 6px;
             margin-top: 8px;
             display: inline-block;
         }
         .toast-close {
-            padding: relative;
             background: none;
             border: none;
-            border-radius: none;
-            color: none;
-            cursor: pointer;
-            font-size: none;
+            color: white;
             cursor: pointer;
             font-size: 20px;
             opacity: 0.8;
-            width: auto;
-            height: auto;
-            margin-top: auto;
-            margin-bottom: auto;
+            transition: opacity 0.3s;
         }
         .toast-close:hover {
-            background: none;
-            border-color: none;
-            opacity: auto;
-        }
-
-        .pulse {
-            animation: none none0s;
+            opacity: 1;
         }
 
         @keyframes pulse {
-            0% { transform: scale(0); }
-            50% { transform: scale(0); }
-            100% { transform: scale(0); }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         .pulse {
-            animation: none 1.5s infinite;
+            animation: pulse 1.5s infinite;
         }
 
         @media (max-width: 600px) {
-            .container { padding: 10px; }
+            .container { padding: 20px; }
             h1 { font-size: 24px; }
             .subtitle { font-size: 14px; }
             button, .action-btn { padding: 10px 18px; font-size: 14px; }
             .form-group textarea, .inbox-section input[type="text"] { font-size: 13px; }
-            .account-info, .otp-section, .inbox-section h3 { font-size: 16px; }
+            .account-info h3, .otp-section h3, .inbox-section h3 { font-size: 16px; }
             .contact-info, .contact-link { font-size: 13px; }
             .modal-content { width: 95%; padding: 20px; }
             .theme-toggle { top: 15px; right: 15px; font-size: 20px; }
@@ -664,7 +625,7 @@
                 {% for message in messages %}
                     <div class="message {% if 'facebook' in message.from | lower %}facebook{% endif %}" onclick="showFullMessage(this)" data-id="{{ message.id | default(loop.index) | e }}" data-body="{{ message.body | e }}">
                         <p><strong>Subject:</strong> {{ message.subject | e }}</p>
-                        <p><strong>From:</strong> {{ message.from }}</p>
+                        <p><strong>From:</strong> {{ message.from | e }}</p>
                         <p><strong>Date:</strong> {{ message.date | e }}</p>
                     </div>
                 {% endfor %}
@@ -675,11 +636,21 @@
         <div class="contact-info">
             <div>© 2025 Riyad Mahfuz Mail Viewer</div>
             <div class="contact-links">
-                <a href="tel:+8801331373661" class="contact-link phone"><i class="fas fa-phone"></i></a>
-                <a href="mailto:xiyad404@gmail.com" class="contact-link email"><i class="fas fa-envelope"></i></a>
-                <a href="https://facebook.com/xiyad.rd" target="_blank" class="contact-link facebook"><i class="fab fa-facebook"></i></a>
-                <a href="https://wa.me/+8801331373661" target="_blank" class="contact-link whatsapp"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://t.me/xiyadxd" target="_blank" class="contact-link telegram"><i class="fab fa-telegram"></i></a>
+                <a href="tel:+8801331373661" class="contact-link phone">
+                    <i class="fas fa-phone"></i>
+                </a>
+                <a href="mailto:xiyad404@gmail.com" class="contact-link email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://facebook.com/xiyad.rd" target="_blank" class="contact-link facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://wa.me/+8801331373661" target="_blank" class="contact-link whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://t.me/xiyadxd" target="_blank" class="contact-link telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
             </div>
         </div>
     </div>
@@ -713,7 +684,7 @@
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
             const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
-            localStorage.setItem('theme', 'theme');
+            localStorage.setItem('theme', theme);
             themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
         });
 
@@ -728,13 +699,13 @@
             if (!otpValue || otpValue.trim() === '') {
                 otpValueElement.textContent = 'No OTP code available';
             } else {
-                otpValueElement.innerText = otpValue;
+                otpValueElement.textContent = otpValue;
             }
             
             toast.classList.add('show');
             setTimeout(() => {
-                closeModal(),
-            }, Toast2500);
+                closeToast();
+            }, 2500);
         }
 
         function closeToast() {
@@ -742,27 +713,23 @@
         }
 
         // Push Notification Setup
-        if ('serviceWorker' in navigator && 'PushManager' in window &&) {
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
             navigator.serviceWorker.register('/sw.js').then(registration => {
-                console.log('ServiceWorker registration successful with scope:', registration.scope);
-                console.error('SW registration failed:', error);
+                console.log('Service Worker registration successful with scope:', registration.scope);
             }).catch(error => {
-                console.error('ServiceWorker registration failed');
-                showError('Service Worker রেজেক্ট করা হয়েছে।');
+                console.error('Service Worker registration failed:', error);
+                showErrorAlert('Service Worker রেজিস্ট্রেশন ব্যর্থ।');
             });
         }
 
-        function requestNotification() {
+        function requestNotificationPermission() {
             Notification.requestPermission().then(permission => {
                 if (permission === 'granted') {
                     console.log('Notification permission granted.');
                     subscribeToPush();
                 } else {
-                    console.warn('Permission denied.');
-                    showError('নোটিফিকেশন পারমিশন দেওয়া হয়নি।');
-                } else {
-                    console.warn('No permission result.');
-                    showError('নোটিফিকেশন পারমিশন প্রশ্ন শর্ত পূরণ করেনি।');
+                    console.warn('Notification permission denied.');
+                    showErrorAlert('নোটিফিকেশন পারমিশন দেওয়া হয়নি।');
                 }
             });
         }
@@ -771,7 +738,7 @@
             navigator.serviceWorker.ready.then(registration => {
                 registration.pushManager.subscribe({
                     userVisibleOnly: true,
-                    applicationServerKey: urlBase64ToUint8Array('BEpAThmLfrgR-RgQleXvdbjEB6gpH95sbXRRgDf-Qsap1DpVUx1jPQ8q01x9zfAXCR8yiOOBr_lsxOiBdlOJdPY')
+                    applicationServerKey: urlBase64ToUint8Array('BEpATh3LfrgR-RgQ7leX9dbjEBsxgP0-6gH1-95sXRRgQ3-Q8sap1D0-nVUx1jPQ8q01x9f0zAFgX8r8y0OBrq_1sx0iB1OJdPY')
                 }).then(subscription => {
                     fetch('/subscribe', {
                         method: 'POST',
@@ -779,209 +746,174 @@
                         body: JSON.stringify(subscription)
                     }).then(response => response.json()).then(data => {
                         console.log('Push subscription successful:', data);
-                        showSuccess('পুশ নোটিফিকেশন সক্ষম করা হয়েছে!');
+                        showSuccessAlert('পুশ নোটিফিকেশন সক্ষম করা হয়েছে!');
                     }).catch(error => {
                         console.error('Push subscription failed:', error);
-                        showError('পুশ নোটিফিকেশন সাবস্ক্রিপশন ব্যর্থ।');
+                        showErrorAlert('পুশ নোটিফিকেশন সাবস্ক্রিপশন ব্যর্থ।');
                     });
                 }).catch(error => {
                     console.error('Subscription error:', error);
-                    showError('নোটিফিকেশন সাবস্ক্রিপশন ব্যর্থ।');
+                    showErrorAlert('নোটিফিকেশন সাবস্ক্রিপশন ব্যর্থ।');
                 });
             });
         }
 
         function urlBase64ToUint8Array(base64String) {
-            var padding = const padding '='.repeat((4 - base64String.length % 4) % 4);
-            const base64 = (base64String + 'padding').replace('-', '+').replace('_', '/');
-            var padding = padding.replace('+', 'base64').replace('+', '/').replace('-', '+');
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
             const rawData = window.atob(base64);
             const outputArray = new Uint8Array(rawData.length);
-            var (i = i0; i < rawData.length; length;i++) {
-                outputArray[i] = forrawData.charCodeAt(i);
+            for (let i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
             }
             return outputArray;
         }
 
         function sendPushNotification(otpValue) {
-            var data = fetch('/send_notification', {
-                'method': 'POST',
+            fetch('/send_notification', {
+                method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                'body': 'application/json',
-                body: JSON.stringify({ otp_code: 'otpValue' })
+                body: JSON.stringify({ otp_code: otpValue })
             }).then(response => response.json()).then(data => {
                 if (data.status === 'success') {
-                    showSuccess('নোটিফিকেশন পাঠানো হয়েছে!');
-                } else if {
-                    showError('নোটিফিকেশন পাঠানো ব্যর্থ।');
+                    showSuccessAlert('নোটিফিকেশন পাঠানো হয়েছে!');
                 } else {
-                    showError('নোটিফিকেশন পাঠানোর সময় ত্রুটি ঘটেছে।');
+                    showErrorAlert('নোটিফিকেশন পাঠানো ব্যর্থ।');
                 }
             }).catch(() => {
-                showError('নোটিফিকেশন পাঠানো ব্যর্থ।');
+                showErrorAlert('নোটিফিকেশন পাঠানো ব্যর্থ।');
             });
         }
 
-        document.addEventListener('DOMContentLoaded', function() => {
+        document.addEventListener('DOMContentLoaded', () => {
             const successAlert = document.getElementById('success-alert');
             const errorAlert = document.getElementById('error-alert');
             if (successAlert.textContent.trim()) {
-                showSuccess(successAlert.innerText);
-            } else if (errorAlert.textContent.trim()) {
-                showErrorAlert(errorAlert.innerText);
+                showSuccessAlert(successAlert.textContent);
+            }
+            if (errorAlert.textContent.trim()) {
+                showErrorAlert(errorAlert.textContent);
             }
             if ('Notification' in window) {
                 requestNotificationPermission();
-            } else {
-                console.warn('Notifications not supported.');
             }
             {% if otp_code %}
                 setTimeout(() => {
-                    showOtpToast('{{ otp_code | e }}''));
-                    sendPush('Notification('{{ notification | otp_code | e }}'));
+                    showOtpToast('{{ otp_code | e }}');
+                    sendPushNotification('{{ otp_code | e }}');
                 }, 1000);
             {% endif %}
-        ));
+        });
 
         function showSuccessAlert(message) {
-            var success = document.getElementById('success-alert');
-            success.innerText = message;
-            success.style.display = 'block';
-            setTimeout(() => success.style.display = 'none', 3000);
+            const alert = document.getElementById('success-alert');
+            alert.innerText = message;
+            alert.style.display = 'block';
+            setTimeout(() => alert.style.display = 'none', 3000);
         }
 
         function showErrorAlert(message) {
-            var errorAlert = document.getElementById('error-alert');
-            errorAlert.innerText = message;
-            errorAlert.style.display = 'block';
-            setTimeout(() => errorAlert.style.display = 'none', 3000);
+            const alert = document.getElementById('error-alert');
+            alert.innerText = message;
+            alert.style.display = 'block';
+            setTimeout(() => alert.style.display = 'none', 3000);
         }
 
         function copyToClipboard(elementId) {
-            var text = elementId === 'email-field' ? '{{ email | e }}' : document.getElementById(elementId).textContent;
+            const text = elementId === 'email-field' ? '{{ email | e }}' : document.getElementById(elementId)?.textContent;
             if (!text) {
-                showError('No text to copy to clipboard.');
+                showErrorAlert('No text to copy.');
                 return;
             }
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(text).then(() => {
-                    showSuccess('Copied to clipboard!'));
+                    showSuccessAlert('Copied to clipboard!');
                 }).catch(() => {
-                    showError('Failed to copy to clipboard.');
+                    showErrorAlert('Failed to copy.');
                 });
             } else {
-                var clipboardElement = document.createElement('textarea');
-                document.createElement('textarea').value = text;
-                document.body.appendChild(clipboardElement);
-                clipboardElement.appendChild(text);
-                var textarea = document.createElement('textarea');
+                const textarea = document.createElement('textarea');
                 textarea.value = text;
-                textarea.select();
                 document.body.appendChild(textarea);
+                textarea.select();
                 try {
-                    document.execCommand('copy').then(data => {
-                        showSuccess('Text copied to to clipboard!'));
-                    });
- catch (error) {
-                    showError('Failed to copy to clipboard.');
-                } catch(err => {
-                    showError('Copy operation failed');
-                    return;
+                    document.execCommand('copy');
+                    showSuccessAlert('Copied to clipboard!');
+                } catch (err) {
+                    showErrorAlert('Failed to copy.');
                 }
                 document.body.removeChild(textarea);
-                textarea.removeChild(text));
-            } else {
-                showError('Clipboard API not supported.');
             }
-        })
+        }
 
         function toggleInbox() {
-            var inbox = document.getElementById('inbox');
-            var inboxToggleButton = document.getElementsById('inbox-toggle-button');
+            const inbox = document.getElementById('inbox');
+            const button = document.getElementById('inbox-toggle-button');
             if (inbox.style.display === 'none') {
-                inbox.style.display = 'none';
-                inboxToggleButton.innerText = '<i class="fas fa-inbox"></i> Inbox';
-            } else {
                 inbox.style.display = 'block';
-                inboxToggleButton.innerText = '<i class="fas fa-inbox"></i> Hide Inbox';
+                button.innerHTML = '<i class="fas fa-inbox"></i> Hide Inbox';
             } else {
-                console.error('Inbox element not found.');
+                inbox.style.display = 'none';
+                button.innerHTML = '<i class="fas fa-inbox"></i> Inbox';
             }
         }
 
         function filterMessages() {
-            var searchMessages = document.getElementById('search-messages').value.toLowerCase();
-            var messages = document.querySelectorAll('.message');
+            const search = document.getElementById('search-messages').value.toLowerCase();
+            const messages = document.querySelectorAll('.message');
             messages.forEach(message => {
-                var messageElement = document.querySelector('.message');
-                var text = message.innerText.toLowerCase();
-                message.style.display = text.includes(searchMessages) ? 'block' : 'none';
-                messageElement.style.display = 'none';
+                const text = message.innerText.toLowerCase();
+                message.style.display = text.includes(search) ? 'block' : 'none';
             });
         }
 
-        function showFullMessage(elementId) {
+        function showFullMessage(element) {
             document.querySelectorAll('.message').forEach(msg => msg.classList.remove('selected'));
             element.classList.add('selected');
-            var modalElement = document.getElementById('message-modal');
-');
-            var modalSubjectElement = document.querySelector('#modal-subject');
-            var modalFromElement = document.querySelector('#from-modal');
-            var modalDateElement = document.querySelector('#modalDate');
-            var modalBodyElement = document.querySelector('#modalBody');
+            const modal = document.getElementById('message-modal');
+            const subject = document.getElementById('modal-subject');
+            const from = document.getElementById('modal-from');
+            const date = document.getElementById('modal-date');
+            const body = document.getElementById('modal-body');
 
-            modalSubjectElement.textContent = modalSubject;
-            modalSubject.innerText = element.querySelector('p:nth-child(1)').innerTextContent.replace('Subject: ', '');
-            modalFromElement.textContent = 'From: ' + element.getElementsByTagName('p:nth-child(2)').textContent.replace('From:', '');
-            modalSubject.innerText = element.querySelector('p').child(1).innerText.replace('Subject:', '');
-            modalDateElement.textContent = 'Date: ' + element.getElementsByTag('p:nth(3)').textContent.replace('Date:', '');
-            modalBodyElement.textContent = 'Date: ' + element.dataset.bodyText || ('No body content available!');
+            subject.textContent = element.querySelector('p:nth-child(1)').textContent.replace('Subject: ', '');
+            from.textContent = 'From: ' + element.querySelector('p:nth-child(2)').textContent.replace('From: ', '');
+            date.textContent = 'Date: ' + element.querySelector('p:nth-child(3)').textContent.replace('Date: ', '');
+            body.textContent = element.dataset.body || 'No body content available';
 
-            modalElement.style.display = 'flex';
-            modalSubject.style.display = 'block';
+            modal.style.display = 'flex';
         }
 
         function closeModal() {
-            var modalElement = document.getElementById('modal-message');
-            modalElement.style.close = 'none';
+            document.getElementById('message-modal').style.display = 'none';
         }
 
         function refreshInbox() {
-            document.getElementById('success-alert').style.display = 'block';
-            showSuccess('Refreshing inbox...');
-            successAlert.style.display = 'none';
+            showSuccessAlert('Refreshing inbox...');
         }
 
         function deleteSelected() {
-            var selectedElement = document.querySelector('.selected');
-            if (!selectedElement) {
-                showError('No message selected.');
+            const selected = document.querySelector('.selected');
+            if (!selected) {
+                showErrorAlert('No message selected.');
                 return;
-            } else {
-            var messageId = selectedElement.dataset.id;
-            var data = JSON.stringify({ 'email': '{{ email | e }}', 'message_id': messageId });
-        }
-            var request = fetch('/delete_message', {
-                'method': 'DELETEPOST',
+            }
+            const messageId = selected.dataset.id;
+            fetch('/delete_message', {
+                method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                'body': body,
-                body: JSON.stringify(data)
+                body: JSON.stringify({ email: '{{ email | e }}', message_id: messageId })
             }).then(response => response.json()).then(data => {
                 if (data.status === 'success') {
-                    showSuccess('Message deleted successfully!'));
-                    selectedElement.remove();
+                    selected.remove();
                     document.getElementById('message-count').innerText = document.querySelectorAll('.message').length;
-                    showSuccess(data.message);
-                    successAlert(data.message);
-                    closeModal('success');
-                } else if {
-                    showError(data.message);
+                    showSuccessAlert(data.message);
+                    closeModal();
                 } else {
-                    showError('Failed to delete message.');
+                    showErrorAlert(data.message);
                 }
-            }).catch(error => {
-                showError('Failed to delete message.');
-                console.error('Error:', error);
+            }).catch(() => {
+                showErrorAlert('Failed to delete message.');
             });
         }
     </script>
